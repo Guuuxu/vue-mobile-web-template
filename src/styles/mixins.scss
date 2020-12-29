@@ -1,0 +1,321 @@
+//清除浮动
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+//定位全屏
+@mixin allcover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  overscroll-behavior-y: contain;
+}
+
+//定位上下左右居中
+@mixin center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//定位上下居中
+@mixin ct {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+//定位左右居中
+@mixin cl {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+//宽高
+@mixin wh($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+//字体大小、行高、字体
+@mixin font($size, $line-height, $family: 'Microsoft YaHei') {
+  font: #{$size}/#{$line-height} $family;
+}
+
+//字体大小，颜色
+@mixin sc($size, $color) {
+  font-size: $size;
+  color: $color;
+}
+
+//flex 布局和 子元素 对其方式
+@mixin fb($type: space-between,$type1:center,$direction:row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $type;
+  align-items: $type1;
+}
+
+
+// 背景图片地址和大小
+@mixin bis($url,$size:contain) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-size: $size;
+}
+
+@mixin mediaBg($url2x,$url3x) {
+  background-image: -webkit-image-set(
+                  url($url2x) 2x,
+                  url($url3x) 3x);
+}
+
+//盒子阴影
+@mixin boxShadow($x, $y, $blur, $color) {
+  -webkit-box-shadow: $x $y $blur $color;
+  -moz-box-shadow: $x $y $blur $color;
+  box-shadow: $x $y $blur $color;
+}
+
+@mixin tapActive {
+  &:active {
+    background-color: #dcdcdc;
+  }
+}
+
+//三角
+@mixin triangle($direction, $sSize,$lSize, $borderColor ) {
+  content: "";
+  height: 0;
+  width: 0;
+  @if $direction == top {
+    border-bottom: $lSize solid $borderColor;
+    border-left: $sSize dashed transparent;
+    border-right: $sSize dashed transparent;
+  } @else if $direction == right {
+    border-left: $lSize solid $borderColor;
+    border-top: $sSize dashed transparent;
+    border-bottom: $sSize dashed transparent;
+  } @else if $direction == bottom {
+    border-top: $lSize solid $borderColor;
+    border-left: $sSize dashed transparent;
+    border-right: $sSize dashed transparent;
+  } @else if $direction == left {
+    border-right: $lSize solid $borderColor;
+    border-top: $sSize dashed transparent;
+    border-bottom: $sSize dashed transparent;
+  }
+}
+
+@mixin dropShadow($shadow...) {
+  filter: drop-shadow($shadow);
+}
+
+//多行...处理
+@mixin multi-line-cutting($line-clamp) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: $line-clamp;
+  -webkit-box-orient: vertical;
+}
+
+//修复ios 设置border-radius时,子元素有transform导致overflow:hidden失效问题
+@mixin fix-ios-border-radius-over-hidden {
+  //transform: rotate(0deg);
+  //以下方法也行
+  /* -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);*/
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+/*1px处理方案*/
+@mixin setTopLine($color,$style) {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px $style $color;
+  transform-origin: 0 0;
+  transform: scaleY(0.5);
+}
+
+@mixin setBottomLine($color,$style) {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1px $style $color;
+  transform-origin: 0 100%;
+  transform: scaleY(0.5);
+}
+
+@mixin setLeftLine($color,$style) {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  bottom: 0;
+  border-left: 1px $style $color;
+  transform-origin: 0 0;
+  transform: scaleX(0.5);
+}
+
+@mixin setRightLine($color,$style) {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1px;
+  bottom: 0;
+  border-right: 1px $style $color;
+  transform-origin: 100% 0;
+  transform: scaleX(0.5);
+}
+
+@mixin onePx($color: #D8D4D7,$direction: bottom,$style:solid) {
+  position: relative;
+  @if $direction=='rect' {
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 200%;
+      border: 1px $style $color;
+      height: 200%;
+      pointer-events: none;
+      transform-origin: left top;
+      transform: scale(0.5);
+      z-index: 2;
+    }
+  } @else if $direction=='top' {
+    &::before {
+      z-index: 2;
+      @include setTopLine($color, $style)
+    }
+  } @else if $direction=='bottom' {
+    &::after {
+      z-index: 2;
+      @include setBottomLine($color, $style)
+    }
+  } @else if $direction=='left' {
+    &::before {
+      z-index: 2;
+      @include setLeftLine($color, $style)
+    }
+  } @else if $direction=='right' {
+    &::after {
+      z-index: 2;
+      @include setRightLine($color, $style)
+    }
+  }
+}
+
+// transform和伪类实现1px圆角
+@mixin circleOnePx($color,$radius:50%) {
+  position: relative;
+  &::after {
+    border: 1px solid $color;
+    border-radius: $radius*2;
+    position: absolute;
+    content: '';
+    left: 0;
+    pointer-events: none;
+    top: 0;
+    transform-origin: 0 0;
+    z-index: 3;
+    @extend %border-r-s;
+  }
+}
+
+@media (min-resolution: 2dppx) {
+  %border-r-s {
+    width: 200%;
+    height: 200%;
+    transform: scale(0.5);
+  }
+}
+
+/*@media (min-resolution: 3dppx) {
+  %border-r-s {
+    width: 300%;
+    height: 300%;
+    transform: scale(0.333);
+  }
+}*/
+/*iphoneX底部padding*/
+@mixin iphoneXPadBot {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/**/
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@mixin padBottomWithSafeAreaInsetBottom($size:0,$isImportant:0) {
+  @supports (padding-bottom:  env(safe-area-inset-bottom)) {
+    @if ($isImportant>0) {
+      padding-bottom: calc(#{$size} + env(safe-area-inset-bottom)) !important;
+    } @else {
+      padding-bottom: calc(#{$size} + env(safe-area-inset-bottom));
+    }
+
+  }
+  @supports not (padding-bottom:  env(safe-area-inset-bottom)) {
+    @if ($isImportant>0) {
+      padding-bottom: $size !important;
+    } @else {
+      padding-bottom: $size;
+    }
+
+  }
+}
+
+@mixin bottomWithSafeAreaInsetBottom($size:0,$isImportant:0) {
+  @supports (bottom:  env(safe-area-inset-bottom)) {
+    @if ($isImportant>0) {
+      bottom: calc(#{$size} + env(safe-area-inset-bottom)) !important;
+    } @else {
+      bottom: calc(#{$size} + env(safe-area-inset-bottom));
+    }
+  }
+  @supports not (bottom:  env(safe-area-inset-bottom)) {
+    @if ($isImportant>0) {
+      bottom: $size !important;
+    } @else {
+      bottom: $size;
+    }
+  }
+}
+
+@mixin heightWithSafeAreaInsetBottom($size:0,$isImportant:0) {
+  @supports (height:  env(safe-area-inset-bottom)) {
+    @if ($isImportant>0) {
+      height: calc(#{$size} + env(safe-area-inset-bottom)) !important;
+    } @else {
+      height: calc(#{$size} + env(safe-area-inset-bottom));
+    }
+  }
+  @supports not (height:  env(safe-area-inset-bottom)) {
+    @if ($isImportant>0) {
+      height: $size !important;
+    } @else {
+      height: $size;
+    }
+  }
+}

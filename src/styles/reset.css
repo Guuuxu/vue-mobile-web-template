@@ -1,0 +1,113 @@
+body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, li, p, h1, h2, h3, h4, h5, h6, i, b, textarea, button, input, select, figure, figcaption, applet, object, iframe, blockquote, pre, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, u, center, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, canvas, details, embed, hgroup, main, menu, output, ruby, summary, time, mark, audio, video {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: baseline;
+    font-size: 100%;
+    -webkit-overflow-scrolling: touch;
+    background: transparent;
+    font-weight: normal; /*按项目需求*/
+}
+
+i {
+    display: inline-block;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    /*此处只是去掉默认的小×*/
+}
+
+[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+textarea {
+    -webkit-appearance: none;
+    outline: none;
+    resize: none;
+}
+
+button {
+    outline: none;
+}
+
+input {
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
+body, html {
+    font-family: -apple-system-font, Helvetica Neue, Helvetica Arial, PingFang SC, Hiragino Sans GB, Heiti SC, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+    line-height: 1;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent
+}
+/*触摸动作也经常用于完全解决由支持双击缩放手势引起的点击事件的延迟。*/
+html {
+    touch-action: manipulation;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    text-decoration: none;
+}
+
+a:-webkit-any-link {
+    text-decoration: none;
+}
+
+input::-webkit-inner-spin-button { /*解决input的type="number"在部分手机端会出现一个小按钮*/
+    -webkit-appearance: none; /*去除系统默认appearance的样式,常用于IOS下移除原生样式*/
+}
+
+input::-webkit-outer-spin-button { /*解决input的type="number"在部分手机端会出现一个小按钮*/
+    -webkit-appearance: none;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, menu, nav, section {
+    display: block;
+}
+
+/* HTML5 hidden-attribute fix for newer browsers */
+*[hidden] {
+    display: none;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
